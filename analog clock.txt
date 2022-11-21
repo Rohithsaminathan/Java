@@ -1,0 +1,167 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"  href="analong.css">
+</head>
+<body>
+    
+<div class="analong-clock">
+<div class="needle hrs"></div>
+<div class="needle min"></div>
+<div class="needle sec"></div>
+
+
+<div class="number number-1">1</div>
+<div class="number number-2">2</div>
+<div class="number number-3">3</div>
+<div class="number number-4">4</div>
+<div class="number number-5">5</div>
+<div class="number number-6">6</div>
+<div class="number number-7">7</div>
+<div class="number number-8">8</div>
+<div class="number number-9">9</div>
+<div class="number number-10">10</div>
+<div class="number number-11">11</div>
+<div class="number number-12">12</div> 
+
+</div>
+
+    <script src="analong.js"></script>
+</body>
+</html>
+-----------------------------------------------------------------
+css
+@import url('https://fonts.googleapis.com/css2?family=Inspiration&family=Poppins:wght@300;400;500;700&family=Smokum&display=swap');
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #353b48;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+   justify-content: center;
+   align-items: center;
+   overflow: hidden;
+}
+.analong-clock{
+width: 500px;
+height: 500px;
+background-color:#f5f6fa;
+border-radius: 50% ;
+border: 10px ridge#e84118;
+position: relative;
+background-image: url(14.png);
+background-repeat: no-repeat;
+background-size: 200px 200px;
+background-position: center;
+}
+.analong-clock::after{
+    content: '';
+    width: 15px;
+    height: 15px;
+position: absolute;
+background-color: #e84118;
+border-radius: 50%;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+z-index: 10;
+}
+
+
+
+.analong-clock::before{
+    content: 'ROHITH';
+position: absolute;
+color:black;
+top: 20%;
+left: 50%;
+transform: translate(-50%,-50%);
+font-size: 40px;
+font-family: 'Smokum', cursive;
+
+}
+
+.number{
+    --rotate:0;
+    position: absolute;
+    font-size: 25px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: blue;
+    transform: rotate(var(--rotate));
+}
+.number-1{--rotate:30deg;}
+.number-2{--rotate:60deg;}
+.number-3{--rotate:90deg;}
+.number-4{--rotate:120deg;}
+.number-5{--rotate:150deg;}
+.number-6{--rotate:180deg;}
+.number-7{--rotate:210deg;}
+.number-8{--rotate:240deg;}
+.number-9{--rotate:270deg;}
+.number-10{--rotate:300deg;}
+.number-11{--rotate:330deg;}
+
+.needle{
+    --rotation:0;
+    position: absolute;
+transform-origin: bottom;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    width: 10px;
+    height: 190px;
+    transform: translateX(-50%)rotate(calc(var(--rotation)*1deg));
+    background-color: chartreuse;
+    z-index: 8;
+    border: 1px solid #2d3640;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+.sec{
+    background-color: #e84118;
+    width: 3px;
+    height: 40%;
+}
+.min{
+    background-color: #e84118;
+    width: 7px;
+    height: 37%;
+}
+.hrs{
+    background-color: #e84118;
+    width: 10px;
+    height: 25%;
+}
+---------------------------------------------------------------------------------------
+javaScript
+const hour=document.querySelector(".hrs");
+const minutes=document.querySelector(".min");
+const seconds=document.querySelector(".sec");
+
+setInterval(runClock,1000);
+
+function runClock(){
+    const  time=new Date();
+    const sec=time.getSeconds()/60;
+    const min=(sec+time.getMinutes())/60;
+    const hrs=(min+time.getHours())/60;
+    hour.style.setProperty('--rotation',hrs*360);
+    minutes.style.setProperty('--rotation',min*360);
+    seconds.style.setProperty('--rotation',sec*360);
+}
+runClock();
